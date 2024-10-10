@@ -9,44 +9,29 @@ class PictureController extends Controller
 {
     public function index()
     {
-        return Picture::all();
+        $pictures = Picture::orderBy('created_at', 'desc')->paginate(6);
+        return view('welcome', compact('pictures'));
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'user_id' => ['required', 'exists:users'],
-            'picture_id' => ['required', 'integer'],
-            'picture_name' => ['required'],
-            'picture_description' => ['required'],
-        ]);
-
-        return Picture::create($data);
+        //
     }
 
-    public function show(Picture $picture)
+    public function show($picture_slug)
     {
-        return $picture;
+        $picture = Picture::where('picture_slug', $picture_slug)->firstOrFail();
+
+        return view('pictures.show', compact('picture'));
     }
 
     public function update(Request $request, Picture $picture)
     {
-        $data = $request->validate([
-            'user_id' => ['required', 'exists:users'],
-            'picture_id' => ['required', 'integer'],
-            'picture_name' => ['required'],
-            'picture_description' => ['required'],
-        ]);
-
-        $picture->update($data);
-
-        return $picture;
+        //
     }
 
     public function destroy(Picture $picture)
     {
-        $picture->delete();
-
-        return response()->json();
+        //
     }
 }

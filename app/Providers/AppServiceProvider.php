@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        \URL::forceScheme('https');
+//        use this when its on prod 👇
+//        \URL::forceScheme('https');
+//        👆 disable this when its on local prod
     }
 }

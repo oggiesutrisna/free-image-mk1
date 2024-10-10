@@ -9,11 +9,13 @@ return new class extends Migration {
     {
         Schema::create('pictures', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->integer('picture_id');
+            $table->foreignIdFor(\App\Models\User::class);
+            $table->string('picture_slug')
+                ->unique();
             $table->text('picture');
             $table->text('picture_name');
             $table->text('picture_description');
+            $table->string('picture_category');
             $table->timestamps();
         });
     }
